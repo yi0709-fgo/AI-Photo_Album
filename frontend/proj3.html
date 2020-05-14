@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <script src="https://kit.fontawesome.com/a2b4b95edc.js" crossorigin="anonymous"></script>
+  <script type="text/javascript" src="./apiGateway-js-sdk/lib/axios/dist/axios.standalone.js"></script>
+  <script type="text/javascript" src="./apiGateway-js-sdk/lib/CryptoJS/rollups/hmac-sha256.js"></script>
+  <script type="text/javascript" src="./apiGateway-js-sdk/lib/CryptoJS/rollups/sha256.js"></script>
+  <script type="text/javascript" src="./apiGateway-js-sdk/lib/CryptoJS/components/hmac.js"></script>
+  <script type="text/javascript" src="./apiGateway-js-sdk/lib/CryptoJS/components/enc-base64.js"></script>
+  <script type="text/javascript" src="./apiGateway-js-sdk/lib/url-template/url-template.js"></script>
+  <script type="text/javascript" src="./apiGateway-js-sdk/lib/apiGatewayCore/sigV4Client.js"></script>
+  <script type="text/javascript" src="./apiGateway-js-sdk/lib/apiGatewayCore/apiGatewayClient.js"></script>
+  <script type="text/javascript" src="./apiGateway-js-sdk/lib/apiGatewayCore/simpleHttpClient.js"></script>
+  <script type="text/javascript" src="./apiGateway-js-sdk/lib/apiGatewayCore/utils.js"></script>
+  <script type="text/javascript" src="./apiGateway-js-sdk/apigClient.js"></script>
+
+  <script src="./js/functions.js"></script>
+  <script src="./js/WebAudioRecorder.min.js"></script>
+  <script src="./js/app.js"></script>
+
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
+      <!--====================================local css=================================================-->
+  <link href="https://fonts.googleapis.com/css?family=Anton|Cute+Font|Montserrat|Patua+One" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <meta charset="UTF-8">
+</head>
+<body>
+
+<p></p>
+<div class="container">
+  <h2 align="center">Photo Album</h2>
+  <div style="max-width: 50em; width: 75%; margin: auto">
+  
+    <form action="/action_page.php">
+    <p>Upload any photo you'd like!</p>
+
+     <div class="input-group">
+            <div class="custom-file">
+                <input type="file" class="custom-file-input"
+                       accept="image/jpg"
+                       id="inputFile">
+                <label class="custom-file-label" style="z-index: -100" for="inputFile">Choose photo</label>
+            </div>
+            <div class="input-group-append">
+                <button class="btn btn-dark" type="button" onclick="upLoadPhoto()">Upload</button>
+            </div>
+        </div>
+      
+    <p></p>
+    <p>Search our cloud for any photo you'd like to see~</p>
+    
+      <div class="input-group">
+          <input id='searchValue' type="text"
+                 class="form-control" placeholder="Search photo here" aria-label="Recipient's username" aria-describedby="basic-addon2">
+          <div class="input-group-append">
+              
+              <button id = record class="btn btn-outline-secondary"
+                      type="button">
+                  <i class="fa fa-microphone"></i></button>
+              <button id = stopRecord disabled class="btn btn-outline-secondary"
+                      type="button">
+                  <i class="far fa-stop-circle"></i></button>
+              <button class="btn btn-dark"  type="button"
+                      onclick="searchPhoto()">Search</button>
+          </div>
+      </div>
+
+      <p><audio id=recordedAudio></audio></p>
+
+
+  </form>
+</div>
+
+<script>
+// Add the following code if you want the name of the file appear on select
+$(".custom-file-input").on("change", function() {
+  var fileName = $(this).val().split("\\").pop();
+  $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+});
+</script>
+ <p></p> <p></p>
+
+<!--this block is used to show album-->
+<div id="albumContain" class="card border-dark mb-3 card-columns hide" style="width: 50rem; margin: auto" >
+    <div class="card-header"><h5 id="searchName">Search Results</h5></div>
+    <div id="picContain" class="card-body text-dark row" >
+    </div>
+</div>
+
+<div id="addContain" class="card border-dark mb-3 hide" style="width: 50rem; margin: auto" >
+    <div class="card-header" id="addName"></div>
+    <div class="card-body text-dark" >
+        <div class="card">
+            <img id='addPic' class="card-img-top" src="https://icoconvert.com/images/noimage2.png" alt="Card image cap">
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>
